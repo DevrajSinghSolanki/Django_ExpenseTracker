@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block expe %}
+active
+{% endblock %}
+{% block Content%}
+      <div class="container mt-5">
+        <h4 class="alert alert-primary  text-center">Welcome {{user.name}}, To Expense Tracker App</h4>
+        {% if expense %}
+          <h5 class="alert alert-danger text-center">Update Your Expense</h5>
+          <form action="/update-expense/{{expense.id}}" method="post">
+        {% else %}
+          <h5 class="alert alert-danger text-center">Add Your Expenses</h5>
+          <form action="/save-expense" method="post">
+        {% endif %}
+          {% csrf_token %}
+        <div class="row">
+                  <div class="col-lg-5 offset-1 mb-3">
+                      <label for="amount" class="form-label">Enter Amount</label>
+                      <input type="text" class="form-control" id="amount" value="{{expense.amount}}" name="amount" placeholder="Enter Your Amount Here ..." required>
+                  </div>
+                  <div class="col-lg-5 mb-3">
+                      <label for="category" class="form-label">Enter Category</label>
+                      <input type="text" class="form-control" id="category" value="{{expense.category}}" name="category" placeholder="Enter Category Here ..." required>
+                  </div>
+                  <div class="col-lg-5 offset-1 mb-3">
+                      <label for="remark" class="form-label">Enter Remark</label>
+                      <input type="text" class="form-control" id="remark" value="{{expense.remark}}" name="remark" placeholder="Enter Your Remark Here ..." >
+                  </div>
+                  <div class="col-lg-5 mb-3">
+                      <label for="date" class="form-label">Enter Date</label>
+                      <input type="date" class="form-control" id="date" name="date" required>
+                  </div>
+                  <div class="col-lg-5 offset-1 mb-3">
+                    <label for="time" class="form-label">Enter Time</label>
+                    <input type="time" class="form-control" id="time" name="time" required>
+                </div>
+                  <div class="col-lg-4 offset-4 text-center">
+                      <button type="submit" class="btn btn-danger">Save Expense</button>
+                      <button type="reset" class="btn btn-warning">Reset</button>
+                  </div>
+         </div>
+        </form>                      
+      </div>
+{% endblock %}

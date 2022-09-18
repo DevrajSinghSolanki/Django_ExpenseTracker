@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block item %}
+              <li class="nav-item">
+                <a class="nav-link active" href="#">All Transactions</a>
+              </li>
+              {% endblock %}
+{% block Content%}
+      <div class="container mt-5">
+          <h4 class="alert alert-primary  text-center">Welcome {{user.name}}, To Expense Tracker App</h4>
+          <h5 class="alert alert-success text-center">Your All Transactions</h5>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Type</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Category</th>
+                <th scope="col">Remark</th>
+                <th scope="col">Options</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for transaction in Transactions %}
+                <tr>
+                  {% if transaction.type %}
+                  <td><div class="btn btn-success">{{transaction.type}}</div></td>
+                  {% else %}
+                  <td><div class="btn btn-danger">Expense</div></td>
+                  {% endif %}
+                    <td>{{transaction.amount}}</td>
+                    <td>{{transaction.date}}</td>
+                    <td>{{transaction.time}}</td>
+                    <td>{{transaction.category}}</td>
+                    <td>{{transaction.remark}}</td>
+                    {% if transaction.type %}
+                    <td><a href="/delete-income/{{transaction.id}}" class="btn btn-danger">Delete</a> <a href="/open-update-income/{{transaction.id}}" class="btn btn-primary">Edit</a></td>
+                    {% else %}
+                    <td><a href="/delete-expense/{{transaction.id}}" class="btn btn-danger">Delete</a> <a href="/open-update-expense/{{transaction.id}}" class="btn btn-primary">Edit</a></td>
+                    {% endif %} 
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+{% endblock %}
